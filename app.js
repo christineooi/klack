@@ -67,8 +67,8 @@ app.post("/messages", (request, response) => {
 
     //Create an instance of Message model
     var message = new Message({
-        sender: req.body.sender,
-        message: req.body.message,
+        sender: request.body.sender,
+        message: request.body.message,
         timestamp: request.body.timestamp
     });
     // Save to database
