@@ -63,7 +63,7 @@ app.get("/messages", (request, response) => {
         // console.log("messages from database - msgs: ", msgs);
         msgs.forEach(msg => {
             console.log("in foreach - msg.message: ", msg.message);
-            messageArray.push(msg.message);
+            messageArray.push(msg);
         });
         // msgs.map(msg => {
         //     messageArray.push(msg.message);

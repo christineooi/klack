@@ -45,7 +45,7 @@ function fetchMessages() {
             }
             if(shouldScroll && shouldDing) scrollMessages();
             if(shouldDing) ding.play();
-            setTimeout(fetchMessages, 50000);
+            setTimeout(fetchMessages, 5000);
         })
 }
 
