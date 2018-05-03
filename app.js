@@ -73,16 +73,17 @@ app.post("/messages", (request, response) => {
     });
     // Save to database
     message.save()
-        .then(data => {
+        .then(data => {  
             console.log('msg saved to the database');
-            data.status(201)
-            data.send(request.body)
         })
         .catch(err => {
             console.log('Unable to save to database'); 
         });
     // messages.push(request.body)
     users[request.body.sender] = timestamp;
+    response.status(201)
+    response.send(request.body)
+    
     
 })
 
