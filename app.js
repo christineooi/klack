@@ -6,6 +6,7 @@ const app = express()
 app.use(express.static("./public"))
 app.use(express.json())
 
+const dbName = 'klack';
 const DB_USER = 'admin';
 const DB_PASSWORD = 'admin';
 const DB_URI = 'ds117336.mlab.com:17336';
@@ -29,10 +30,8 @@ db.on('error', console.error.bind(console, 'connection error: '));
 var Schema = mongoose.Schema;
 var messageSchema = new Schema({
     sender: String,
-    chatgroup: [String],
     message: String,
-    timestamp: Date,
-    isactive: Boolean
+    timestamp: Date
 });
 // Compile a Message model from the schema
 var Message = mongoose.model('Message', messageSchema);
@@ -66,30 +65,28 @@ app.post("/messages", (request, response) => {
     let timestamp = Date.now()
     request.body.timestamp = timestamp
 
-    // Create an instance of Message model
-    // var message = new Message({
-    //     sender: req.body.sender,
-    //     chatgroup: req.body.chatgroup,
-    //     message: req.body.message,
-    //     timestamp: request.body.timestamp,
-    //     isactive: Boolean
-    // });
-    // // Save to database
-    // message.save()
-    //     .then(data => {
-    //         console.log('msg saved to the database');
-    //         data.status(201)
-    //         data.send(request.body)
-    //     })
-    //     .catch(err => {
-    //         console.log('Unable to save to database'); 
-    //     });
+    //Create an instance of Message model
+    var message = new Message({
+        sender: req.body.sender,
+        message: req.body.message,
+        timestamp: request.body.timestamp
+    });
+    // Save to database
+    message.save()
+        .then(data => {
+            console.log('msg saved to the database');
+            data.status(201)
+            data.send(request.body)
+        })
+        .catch(err => {
+            console.log('Unable to save to database'); 
+        });
     // messages.push(request.body)
-    // users[request.body.sender] = timestamp
+    users[request.body.sender] = timestamp;
     
 })
 
 app.listen(PORT, () => {
-    mongoose.connect(`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_URI}/klack`);
+    mongoose.connect(`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_URI}/${dbName}`);
     console.log(`listening at port ${PORT}`);
 })
