@@ -57,7 +57,7 @@ app.get("/messages", (request, response) => {
     usersSimple.sort(userSortFn);
     usersSimple.filter((a) => (a.name !== request.query.for))
     users[request.query.for] = now;
-    let messageArray = [];
+    var messageArray = [];
     // Get message from database
     Message.find(function(err, msgs){
         // console.log("messages from database - msgs: ", msgs);
@@ -68,9 +68,9 @@ app.get("/messages", (request, response) => {
         // msgs.map(msg => {
         //     messageArray.push(msg.message);
         // })
-        
+        console.log("messageArray: ", messageArray);
     });
-    console.log("messageArray: ", messageArray);
+    
     response.send({messages: messageArray, users: usersSimple});
     // response.send({messages: messages.slice(-40), users: usersSimple})
 })
