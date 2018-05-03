@@ -60,6 +60,7 @@ app.get("/messages", (request, response) => {
     let messageArray = [];
     // Get message from database
     Message.find(function(err, msgs){
+        console.log("messages from database - msgs: ", msgs);
         msgs.map(msg => {
             messageArray.push(msg.message);
         })
