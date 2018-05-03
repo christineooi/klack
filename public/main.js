@@ -35,6 +35,7 @@ function fetchMessages() {
             const shouldScroll = scrolledToBottom();
             var shouldDing = false;
             listUsers(data.users);
+            console.log("data.messages: ", data.messages);
             for(let i = 0; i < data.messages.length; i++){ 
                 let msg = data.messages[i];
                 if(msg.timestamp > messages[messages.length-1].timestamp) {
@@ -44,7 +45,7 @@ function fetchMessages() {
             }
             if(shouldScroll && shouldDing) scrollMessages();
             if(shouldDing) ding.play();
-            setTimeout(fetchMessages, 5000);
+            setTimeout(fetchMessages, 50000);
         })
 }
 
