@@ -31,7 +31,7 @@ var Schema = mongoose.Schema;
 var messageSchema = new Schema({
     sender: String,
     message: String,
-    timestamp: Date
+    timestamp: Number
 });
 // Compile a Message model from the schema
 var Message = mongoose.model('Message', messageSchema);
@@ -69,7 +69,7 @@ app.get("/messages", (request, response) => {
         // msgs.map(msg => {
         //     messageArray.push(msg.message);
         // })
-        console.log("messageArray: ", messageArray);
+        // console.log("messageArray: ", messageArray);
         response.send({messages: messageArray, users: usersSimple});
     });
     
