@@ -62,8 +62,8 @@ app.get("/messages", (request, response) => {
     Message.find(function(err, msgs){
         // console.log("messages from database - msgs: ", msgs);
         msgs.forEach(msg => {
-            console.log("in foreach - msg.message: ", msg.message);
-            messageArray.push(msg.message);
+            // console.log("in foreach - msg.message: ", msg.message);
+            messageArray.push({message: msg.message, timestamp: msg.timestamp});
         });
         // msgs.map(msg => {
         //     messageArray.push(msg.message);

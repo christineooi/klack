@@ -35,7 +35,6 @@ function fetchMessages() {
             const shouldScroll = scrolledToBottom();
             var shouldDing = false;
             listUsers(data.users);
-            console.log("data.messages.length: ", data.messages.length);
             for(let i = 0; i < data.messages.length; i++){ 
                 let msg = data.messages[i];
                 console.log("in for loop - msg: ", msg);
