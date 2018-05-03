@@ -35,7 +35,7 @@ function fetchMessages() {
             const shouldScroll = scrolledToBottom();
             var shouldDing = false;
             listUsers(data.users);
-            console.log("data.messages: ", data.messages);
+            console.log("data.messages.message: ", data.messages.message);
             for(let i = 0; i < data.messages.length; i++){ 
                 let msg = data.messages[i];
                 if(msg.timestamp > messages[messages.length-1].timestamp) {
