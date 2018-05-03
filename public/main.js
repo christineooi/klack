@@ -35,9 +35,11 @@ function fetchMessages() {
             const shouldScroll = scrolledToBottom();
             var shouldDing = false;
             listUsers(data.users);
-            console.log("data.messages.message: ", data.messages.message);
+            console.log("data.messages.length: ", data.messages.length);
             for(let i = 0; i < data.messages.length; i++){ 
                 let msg = data.messages[i];
+                console.log("in for loop - msg: ", msg);
+                console.log("msg.timestamp: ", msg.timestamp);
                 if(msg.timestamp > messages[messages.length-1].timestamp) {
                     appendMessage(msg);
                     shouldDing = true;
