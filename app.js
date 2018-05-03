@@ -1,5 +1,6 @@
 const express = require('express')
 const querystring = require('querystring');
+const mongoose = require('mongoose');
 const port = 3000
 const app = express()
 
@@ -11,6 +12,24 @@ let users = {}
 
 app.use(express.static("./public"))
 app.use(express.json())
+
+mongoose.connect('mongodb://localhost:27017/klack', () => {
+    console.log('database is connected...');
+});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+// Define a schema
+var Schema = mongoose.Schema;
+var messageSchema = new Schema({
+    sender: String,
+    chatgroup: [String],
+    message: String,
+    timestamp: Date,
+    isactive: Boolean
+});
+// Compile a Message model from the schema
+var Message = mongoose.model('Message', messageSchema);
 
 function userSortFn(a, b) {
     var nameA = a.name.toUpperCase(); // ignore upper and lowercase
@@ -40,10 +59,28 @@ app.post("/messages", (request, response) => {
     // add a timestamp to each incoming message.
     let timestamp = Date.now()
     request.body.timestamp = timestamp
-    messages.push(request.body)
-    users[request.body.sender] = timestamp
-    response.status(201)
-    response.send(request.body)
+
+    // Create an instance of Message model
+    // var message = new Message({
+    //     sender: req.body.sender,
+    //     chatgroup: req.body.chatgroup,
+    //     message: req.body.message,
+    //     timestamp: request.body.timestamp,
+    //     isactive: Boolean
+    // });
+    // // Save to database
+    // message.save()
+    //     .then(data => {
+    //         console.log('msg saved to the database');
+    //         data.status(201)
+    //         data.send(request.body)
+    //     })
+    //     .catch(err => {
+    //         console.log('Unable to save to database'); 
+    //     });
+    // messages.push(request.body)
+    // users[request.body.sender] = timestamp
+    
 })
 
 app.listen(3000)
