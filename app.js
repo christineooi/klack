@@ -1,8 +1,16 @@
 const express = require('express')
 const querystring = require('querystring');
 const mongoose = require('mongoose');
-const port = 3000
+
 const app = express()
+app.use(express.static("./public"))
+app.use(express.json())
+
+const DB_USER = 'admin';
+const DB_PASSWORD = 'admin';
+const DB_URI = 'ds117336.mlab.com:17336';
+const PORT = process.env.PORT || 3000;
+
 
 // List of all messages
 let messages = []
@@ -10,12 +18,10 @@ let messages = []
 // Track last active times for each sender
 let users = {}
 
-app.use(express.static("./public"))
-app.use(express.json())
 
-mongoose.connect('mongodb://localhost:27017/klack', () => {
-    console.log('database is connected...');
-});
+// mongoose.connect('mongodb://localhost:27017/klack', () => {
+//     console.log('database is connected...');
+// });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -83,4 +89,7 @@ app.post("/messages", (request, response) => {
     
 })
 
-app.listen(3000)
+app.listen(PORT, () => {
+    mongoose.connect(`mongodb://${DB_USER}:${DB_PASSWORD}@${DB_URI}/klack`);
+    console.log(`listening at port ${PORT}`);
+})
