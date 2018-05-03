@@ -69,9 +69,10 @@ app.get("/messages", (request, response) => {
         //     messageArray.push(msg.message);
         // })
         console.log("messageArray: ", messageArray);
+        response.send({messages: messageArray, users: usersSimple});
     });
     
-    response.send({messages: messageArray, users: usersSimple});
+    
     // response.send({messages: messages.slice(-40), users: usersSimple})
 })
 
