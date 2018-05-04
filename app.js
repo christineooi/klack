@@ -52,15 +52,19 @@ app.get("/messages", (request, response) => {
     usersSimple = Object.keys(users).map((x) => ({name: x, active: (users[x] > requireActiveSince)}))
     usersSimple.sort(userSortFn);
     usersSimple.filter((a) => (a.name !== request.query.for))
-    users[request.query.for] = now;
+    // users[request.query.for] = now;
     var messageArray = [];
     // Get message from database
     Message.find(function(err, msgs){
         msgs.forEach(msg => {
-            console.log("In for each - msg: ", msg);
-            console.log("In for each - msg.timestamp: ", msg.timestamp);
             messageArray.push(msg);
-        });
+            // Get latest timestamp for user
+            if (!users[msg.name]) {
+                users[msg.name] = msg.timestamp
+            } else if (users[msg.name] < msg.timestamp) {
+                users[msg.name] = msg.timestamp
+            }
+        }); 
         response.send({messages: messageArray.slice(-40), users: usersSimple});
     });
     
