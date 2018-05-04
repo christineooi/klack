@@ -58,6 +58,7 @@ app.get("/messages", (request, response) => {
     Message.find(function(err, msgs){
         msgs.forEach(msg => {
             console.log("In for each - msg: ", msg);
+            console.log("In for each - msg.timestamp: ", msg.timestamp);
             messageArray.push(msg);
         });
         response.send({messages: messageArray.slice(-40), users: usersSimple});
