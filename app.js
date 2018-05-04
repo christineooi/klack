@@ -59,7 +59,7 @@ app.get("/messages", (request, response) => {
         msgs.forEach(msg => {
             messageArray.push(msg);
             //Get latest timestamp for user
-            console.log("In foreach - users[msg.name]: ", users[msg.name]);
+            console.log("In foreach - users[msg.sender]: ", users[msg.sender]);
             if (!users[msg.sender]) {
                 users[msg.sender] = now
             } else if (users[msg.sender] < msg.timestamp) {
