@@ -37,10 +37,7 @@ function fetchMessages() {
             listUsers(data.users);
             for(let i = 0; i < data.messages.length; i++){ 
                 let msg = data.messages[i];
-                console.log("in for loop - msg: ", msg);
-                console.log("msg.timestamp: ", msg.timestamp);
-                console.log("messages[messages.length-1].timestamp: ", messages[messages.length-1].timestamp);
-
+            
                 if(msg.timestamp > messages[messages.length-1].timestamp) {
                     appendMessage(msg);
                     shouldDing = true;

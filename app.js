@@ -56,16 +56,12 @@ app.get("/messages", (request, response) => {
     var messageArray = [];
     // Get message from database
     Message.find(function(err, msgs){
-        // console.log("messages from database - msgs: ", msgs);
         msgs.forEach(msg => {
-            // console.log("in foreach - msg.message: ", msg.message);
             messageArray.push(msg);
         });
         response.send({messages: messageArray.slice(-40), users: usersSimple});
     });
     
-    
-    // response.send({messages: messages.slice(-40), users: usersSimple})
 })
 
 app.post("/messages", (request, response) => {
@@ -87,7 +83,6 @@ app.post("/messages", (request, response) => {
         .catch(err => {
             console.log('Unable to save to database'); 
         });
-    // messages.push(request.body)
     users[request.body.sender] = timestamp;
     response.status(201)
     response.send(request.body)
