@@ -60,10 +60,10 @@ app.get("/messages", (request, response) => {
             messageArray.push(msg);
             //Get latest timestamp for user
             console.log("In foreach - users[msg.name]: ", users[msg.name]);
-            if (!users[msg.name]) {
-                users[msg.name] = now
-            } else if (users[msg.name] < msg.timestamp) {
-                users[msg.name] = msg.timestamp
+            if (!users[msg.sender]) {
+                users[msg.sender] = now
+            } else if (users[msg.sender] < msg.timestamp) {
+                users[msg.sender] = msg.timestamp
             }
         }); 
         response.send({messages: messageArray.slice(-40), users: usersSimple});
