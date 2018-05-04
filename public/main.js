@@ -40,11 +40,7 @@ function fetchMessages() {
                 console.log("in for loop - msg: ", msg);
                 console.log("msg.timestamp: ", msg.timestamp);
                 console.log("messages[messages.length-1].timestamp: ", messages[messages.length-1].timestamp);
-                if (msg.timestamp > messages[messages.length-1].timestamp){
-                    console.log("compared correctly");
-                } else {
-                    console.log("not comparing properly");
-                }
+
                 if(msg.timestamp > messages[messages.length-1].timestamp) {
                     appendMessage(msg);
                     shouldDing = true;

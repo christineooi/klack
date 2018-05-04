@@ -14,15 +14,11 @@ const PORT = process.env.PORT || 3000;
 
 
 // List of all messages
-let messages = []
+// let messages = []
 
 // Track last active times for each sender
 let users = {}
 
-
-// mongoose.connect('mongodb://localhost:27017/klack', () => {
-//     console.log('database is connected...');
-// });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
@@ -63,14 +59,9 @@ app.get("/messages", (request, response) => {
         // console.log("messages from database - msgs: ", msgs);
         msgs.forEach(msg => {
             // console.log("in foreach - msg.message: ", msg.message);
-            messageArray.push({message: msg.message, timestamp: msg.timestamp});
-            // messageArray.push(msg);
+            messageArray.push(msg);
         });
-        // msgs.map(msg => {
-        //     messageArray.push(msg.message);
-        // })
-        // console.log("messageArray: ", messageArray);
-        response.send({messages: messageArray, users: usersSimple});
+        response.send({messages: messageArray.slice(-40), users: usersSimple});
     });
     
     
