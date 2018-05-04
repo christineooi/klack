@@ -57,6 +57,7 @@ app.get("/messages", (request, response) => {
     // Get message from database
     Message.find(function(err, msgs){
         msgs.forEach(msg => {
+            console.log("In for each - msg: ", msg);
             messageArray.push(msg);
         });
         response.send({messages: messageArray.slice(-40), users: usersSimple});
